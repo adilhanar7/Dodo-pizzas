@@ -135,8 +135,10 @@
 import { ref } from '@vue/reactivity'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import { onMounted } from '@vue/runtime-core'
 export default {
-  setup() {
+  props: ['pizza'],
+  setup(props) {
     const router = useRouter()
     const store = useStore()
     const pizzaImage = ref('')
@@ -172,7 +174,10 @@ export default {
 
       store.commit('SELECT_PAGE', 'РедиктированиеПревью')
       store.commit('CREATE__PIZZA', pizza.value)
-      router.push({ name: 'EditPreviewPizza', params: { title: pizzaName.value } })
+      router.push({
+        name: 'EditPreviewPizza',
+        params: { title: pizzaName.value },
+      })
     }
 
     return {

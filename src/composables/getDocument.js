@@ -8,7 +8,7 @@ const getDocument = async (collectionName, paramId) => {
   try {
     const myCollection = doc(firestore, collectionName, paramId)
     const response = await getDoc(myCollection)
-
+    console
     documents.value = { ...response.data(), id: response.id }
   } catch (err) {
     error.value = 'Данные не получины ошибка'

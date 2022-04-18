@@ -5,6 +5,7 @@ import Admin from '../views/Admin.vue'
 import CreatePizza from '../views/CreatePizza.vue'
 import EditPreviewPizza from '../views/EditPreviewPizza.vue'
 import Auth from '@/views/auth/Auth.vue'
+import UpdatePizza from '@/views/UpdatePizza.vue'
 // import Login from '@/views/auth/Login.vue'
 // import SignUp from '@/views/auth/SignUp.vue'
 import { user } from '@/composables/getUser.js'
@@ -46,6 +47,13 @@ const routes = [
     path: '/createpizza',
     name: 'CreatePizza',
     component: CreatePizza,
+    props: true,
+    beforeEnter: requireAuth,
+  },
+  {
+    path: '/updatePizza',
+    name: 'UpdatePizza',
+    component: UpdatePizza,
     props: true,
     beforeEnter: requireAuth,
   },

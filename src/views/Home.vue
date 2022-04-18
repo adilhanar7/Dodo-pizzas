@@ -17,12 +17,16 @@ import PizzaList from '@/components/Pizza/List'
 import Categories from '@/components/Categories'
 import Sort from '@/components/Sort'
 import { useStore } from 'vuex'
+import { computed } from '@vue/runtime-core'
 export default {
   components: { Advertising, PizzaList, Categories, Sort },
   setup() {
     const store = useStore()
+
+    const pizzas = computed(() => store.state.pizzas)
+
     store.commit('SELECT_PAGE', 'Главная')
-    return {  }
+    return { pizzas }
   },
 }
 </script>
