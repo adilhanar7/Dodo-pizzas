@@ -49,7 +49,7 @@ export default {
       email.value = email.value.trim()
       password.value = password.value.trim()
       const { login } = useAuth()
-      isPendingLogin.value = isPending
+      isPendingLogin.value = false
       const { error, isPending } = await login(email.value, password.value)
       errorLogin.value = error
       isPendingLogin.value = isPending
@@ -57,7 +57,7 @@ export default {
       setTimeout(async () => {
         await store.dispatch('getCurrentUser')
         await router.push('/')
-      }, 2300)
+      }, 900)
     }
     return { errorLogin, isPendingLogin, email, password, handleSubmit }
   },

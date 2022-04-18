@@ -69,7 +69,7 @@ export default {
       email.value = email.value.trim()
       password.value = password.value.trim()
       const { signup } = useAuth()
-      isPendingSignUp.value = isPending
+      isPendingSignUp.value = false
       const { error, isPending } = await signup(
         email.value,
         password.value,
@@ -94,8 +94,8 @@ export default {
       }, 5000)
       setTimeout(async () => {
         await store.dispatch('getCurrentUser')
+        await router.push('/')
       }, 5200)
-      await router.push('/')
     }
     return {
       isPendingSignUp,

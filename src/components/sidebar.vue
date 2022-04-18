@@ -489,7 +489,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/app.scss';
 .sidebar {
-  padding: 110px 50px 128px 48px;
+  padding: 28px 50px 128px 48px;
   background: #f2f2f2;
   top: 0;
   left: -426px;
