@@ -1,10 +1,18 @@
 import { firestore } from '@/firebase/config'
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc, deleteDoc } from 'firebase/firestore'
 import { v4 as uuid } from 'uuid'
 
 const useDoc = () => {
   const generatorId = uuid()
 
+  const deleteDocument = async (collectionName, paramId) => {
+    const docRef = doc(firestore, collectionName, paramId)
+    try {
+      await deleteDoc(docRef)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   const addCollection = async (
     collectionName,
     newDoc,
@@ -20,7 +28,7 @@ const useDoc = () => {
     }
   }
 
-  return { addCollection }
+  return { addCollection, deleteDocument }
 }
 
 export default useDoc

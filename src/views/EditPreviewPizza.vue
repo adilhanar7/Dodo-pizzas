@@ -18,6 +18,7 @@
             <div class="edit__pizza_main-inside_child">
               <span>Выберите категорию</span>
               <div @click.self="handleShowCategories()">
+                {{ categoryActive }}
                 <span v-if="boolShowCategories">
                   <ul>
                     <li
@@ -61,7 +62,13 @@
               <span>Определите рейтинг пиццы</span>
               <div>
                 <div>
-                  <input type="radio" name="ratingStars" value="5" v-model="ratingPizza"/>
+                  <input
+                    :class="{ active: ratingPizza === '5' }"
+                    type="radio"
+                    name="ratingStars"
+                    value="5"
+                    v-model="ratingPizza"
+                  />
                   <img :src="activeStarPizza" />
                   <img :src="activeStarPizza" />
                   <img :src="activeStarPizza" />
@@ -69,7 +76,13 @@
                   <img :src="activeStarPizza" />
                 </div>
                 <div>
-                  <input type="radio" name="ratingStars" value="4" v-model="ratingPizza"/>
+                  <input
+                    :class="{ active: ratingPizza === '4' }"
+                    type="radio"
+                    name="ratingStars"
+                    value="4"
+                    v-model="ratingPizza"
+                  />
                   <img :src="activeStarPizza" />
                   <img :src="activeStarPizza" />
                   <img :src="activeStarPizza" />
@@ -77,7 +90,13 @@
                   <img :src="noActiveStarPizza" />
                 </div>
                 <div>
-                  <input type="radio" name="ratingStars" value="3" v-model="ratingPizza"/>
+                  <input
+                    :class="{ active: ratingPizza === '3' }"
+                    type="radio"
+                    name="ratingStars"
+                    value="3"
+                    v-model="ratingPizza"
+                  />
                   <img :src="activeStarPizza" />
                   <img :src="activeStarPizza" />
                   <img :src="activeStarPizza" />
@@ -85,7 +104,13 @@
                   <img :src="noActiveStarPizza" />
                 </div>
                 <div>
-                  <input type="radio" name="ratingStars" value="5" v-model="ratingPizza"/>
+                  <input
+                    :class="{ active: ratingPizza === '2' }"
+                    type="radio"
+                    name="ratingStars"
+                    value="2"
+                    v-model="ratingPizza"
+                  />
                   <img :src="activeStarPizza" />
                   <img :src="activeStarPizza" />
                   <img :src="noActiveStarPizza" />
@@ -96,8 +121,8 @@
             </div>
             <button class="button__black">
               <span v-if="isPending">Создать</span>
-              <span v-else>Идет загрузка....</span></button
-            >я
+              <span v-else>Идет загрузка....</span>
+            </button>
           </form>
           <div class="edit__pizza_main-hints">
             <div class="edit__pizza_main-hints_child">
@@ -145,8 +170,8 @@ export default {
     const categoryActive = ref('Мясные')
     const isPending = ref(true)
     const boolShowCategories = ref(false)
-    const mapChild = ref(true)
-    const ratingPizza = ref(5)
+    const mapChild = ref('true')
+    const ratingPizza = ref('5')
     const resPizza = ref({})
     const ratingStars = ref([])
     const categoryItems = ref([
@@ -167,13 +192,14 @@ export default {
       const categoryIndex = ref(
         categoryItems.value.findIndex((el) => el.name === categoryActive.value)
       )
+      mapChild.value = Boolean(mapChild.value)
       resPizza.value = {
         ...pizza.value,
         category: categoryIndex.value,
-        rating: Number(ratingPizza),
+        rating: Number(ratingPizza.value),
       }
       setTimeout(() => {
-        store.dispatch('postResPizza', resPizza.value, Boolean(mapChild.value))
+        store.dispatch('postResPizza', resPizza.value, mapChild.value)
       }, 2000)
       setTimeout(() => {
         isPending.value = true
@@ -244,7 +270,7 @@ export default {
       }
     }
     &-inside {
-      margin-left: 100px;
+      margin-left: 200px;
       &_child {
         display: flex;
         flex-direction: column;
@@ -259,6 +285,11 @@ export default {
             border: none;
             height: 50px;
             cursor: pointer;
+            font-weight: bold;
+            color: $orange;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             span {
               position: absolute;
               right: 593px;
@@ -317,22 +348,51 @@ export default {
                   transform: translate(-50%, -50%);
                   background-color: rgba(254, 95, 30, 1);
                 }
-                &::after {
-                  content: '';
-                  position: absolute;
-                  top: 50%;
-                  left: 50%;
-                  width: 74%;
-                  height: 77%;
-                  border-radius: 50%;
-                  background-color: rgba(254, 95, 30, 1);
-                  transform: translate(-50%, -50%);
-                  visibility: visible;
-                }
               }
             }
             span {
               margin-left: 15px;
+            }
+          }
+        }
+        &:nth-child(3) {
+          div {
+            div {
+              display: flex;
+              align-items: center;
+              input {
+                position: relative;
+                cursor: pointer;
+                &::before {
+                  content: '';
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  width: 100%;
+                  height: 100%;
+                  border-radius: 50%;
+                  transform: translate(-50%, -50%);
+                  background-color: white;
+                  border: 2px solid rgba(254, 95, 30, 1);
+                }
+                &.active {
+                  &::before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: rgba(254, 95, 30, 1);
+                    background: rgba(254, 95, 30, 1);
+                  }
+                }
+              }
+              img {
+                margin-left: 7px;
+              }
             }
           }
         }
