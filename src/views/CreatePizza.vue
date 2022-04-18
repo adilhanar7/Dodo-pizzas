@@ -34,6 +34,7 @@
                   <label>Размеры</label>
                   <span>
                     <input
+                      :class="{ active: selectSizes.includes('26') }"
                       type="checkbox"
                       name="size26"
                       value="26"
@@ -41,6 +42,7 @@
                     />
                     <label for="size26">26 см</label>
                     <input
+                      :class="{ active: selectSizes.includes('30') }"
                       type="checkbox"
                       name="size30"
                       value="30"
@@ -48,6 +50,7 @@
                     />
                     <label for="size30">30 см</label>
                     <input
+                      :class="{ active: selectSizes.includes('40') }"
                       type="checkbox"
                       name="size40"
                       value="40"
@@ -61,6 +64,7 @@
                   <span class="create-pizza__form-main_item-foot">
                     <span>
                       <input
+                        :class="{ active: selectTypes.includes('0') }"
                         type="checkbox"
                         name="types0"
                         value="0"
@@ -70,6 +74,7 @@
                     </span>
                     <span>
                       <input
+                      :class="{ active: selectTypes.includes('1') }"
                         type="checkbox"
                         name="types1"
                         value="1"
@@ -301,7 +306,33 @@ export default {
               color: rgba(44, 44, 44, 0.5);
             }
             input {
-              background: $orange;
+              position: relative;
+              cursor: pointer;
+              &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 74%;
+                height: 77%;
+                border-radius: 25%;
+                transform: translate(-50%, -50%);
+                background-color: white;
+                border: 2px solid rgba(254, 95, 30, 1);
+              }
+              &.active {
+                &::before {
+                  content: '';
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  width: 74%;
+                  height: 77%;
+                  border-radius: 25%;
+                  transform: translate(-50%, -50%);
+                  background-color: rgba(254, 95, 30, 1);
+                }
+              }
             }
           }
           &:nth-child(2) {
